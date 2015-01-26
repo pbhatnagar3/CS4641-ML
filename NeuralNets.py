@@ -12,16 +12,23 @@ ds = SupervisedDataSet(22, 1);
 
 f = open(os.path.join(__location__, 'SPECT.train'), "r");
 for line in f:
-	l =  line.replace("\r\n", "").split(",")
-	print l
-	current_input = tuple(l[:len(l)-1])
-	current_output = tuple(l[len(l)-1])
+	my_list =  line.replace("\r\n", "").split(",")
+	# print l
+	current_input = tuple(my_list[:len(my_list)-1])
+	current_output = tuple(my_list[len(my_list)-1])
 	# print "here is the current input", current_input, "and its length", len(current_input)
 	# print "here is the current output", current_output, "and its length", len(current_output)
 	ds.addSample(current_input, current_output);	
 	# print len(l)
 
-print len(ds)
+#if you want to check out the length of the training set, then uncomment the last line
+#print len(ds)
+
+net = buildNetwork(22, 3, 1);
+trainer = BackpropTrainer(net, ds)
+x = trainer.trainUntilConvergence()
+print x
+print len(x)
 #net = buildNetwork(2, 3, 1)
 #ds = SupervisedDataSet(2, 1)
 
