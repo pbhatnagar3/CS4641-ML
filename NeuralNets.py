@@ -27,8 +27,9 @@ for line in f:
 net = buildNetwork(22, 3, 1);
 trainer = BackpropTrainer(net, ds)
 x = trainer.trainUntilConvergence()
-print x
-print len(x)
+# print x
+# print len(x)
+print net.params
 #net = buildNetwork(2, 3, 1)
 #ds = SupervisedDataSet(2, 1)
 
