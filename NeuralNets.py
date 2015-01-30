@@ -10,10 +10,11 @@ __location__ =os.path.join(__location__, 'DataSet1');
 
 ds = SupervisedDataSet(22, 1);
 
-f = open(os.path.join(__location__, 'SPECT.train'), "r");
+f = open(os.path.join(__location__, 'SPECT.test'), "r");
 for line in f:
 	my_list =  line.replace("\r\n", "").split(",")
 	# print l
+	# print len(my_list)
 	current_input = tuple(my_list[:len(my_list)-1])
 	current_output = tuple(my_list[len(my_list)-1])
 	# print "here is the current input", current_input, "and its length", len(current_input)
@@ -32,4 +33,4 @@ x = trainer.trainUntilConvergence()
 print net.params
 #net = buildNetwork(2, 3, 1)
 #ds = SupervisedDataSet(2, 1)
-
+trnresult = percentError( trainer.testOnClassData(),trndata['class'] )
