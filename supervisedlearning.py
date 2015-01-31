@@ -1,6 +1,6 @@
 from pprint import pprint
 from sklearn import tree
-
+from sklearn.metrics import classification_report
 
 
 f = open('heart-data/SPECT.train', 'r')
@@ -25,5 +25,10 @@ print "training decision tree"
 dt = tree.DecisionTreeClassifier()
 dt.fit(one_train_x, one_train_y)
 
+one_pred_y = [ dt.predict(x)[0] for x in one_test_x ]
+print one_pred_y
+
 print dt.score( one_test_x, one_test_y )
+print classification_report(one_test_y, one_pred_y, target_names=['class0', 'class1'])
+
 
