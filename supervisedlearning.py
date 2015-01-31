@@ -13,8 +13,11 @@ f.close()
 
 one_train_x = [ a[1:] for a in set_one_train ]
 one_train_y = [ a[0] for a in set_one_train ]
+print "one train_x", one_train_x
 one_test_x = [ a[1:] for a in set_one_test ]
 one_test_y = [ a[0] for a in set_one_test ]
+
+print "one_train_y", one_train_y
 
 
 # for i in range(len(one_train_x)):
