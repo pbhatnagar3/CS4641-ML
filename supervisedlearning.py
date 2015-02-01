@@ -60,8 +60,10 @@ print "training the neural net"
 trainer.trainEpochs( 1000 )
 print ""
 print "Predicting with the neural network"
-tstresult = percentError([int(round((net.activate(row))[0])) for row in one_test_x], [x for x in one_test_y])
+one_pred_y = [int(round((net.activate(row))[0])) for row in one_test_x]
+tstresult = percentError(one_pred_y, [x for x in one_test_y])
 print "Test error: " + str(tstresult)
+# print classification_report(one_test_y, one_pred_y, target_names=['class0', 'class1'])
 print "*"*50
 ######## BOOSTING ########
 print "BOOSTING"
