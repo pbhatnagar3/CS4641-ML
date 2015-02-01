@@ -9,6 +9,7 @@ from pybrain.supervised.trainers import BackpropTrainer
 import numpy as np
 from pybrain.utilities import percentError
 from sklearn.neighbors import KNeighborsClassifier
+import sys
 
 ######## GENERATE INSTANCES ########
 f = open('heart-data/SPECT.train', 'r')
@@ -63,6 +64,8 @@ print "Predicting with the neural network"
 one_pred_y = [int(round((net.activate(row))[0])) for row in one_test_x]
 tstresult = percentError(one_pred_y, [x for x in one_test_y])
 print "Test error: " + str(tstresult)
+print len(one_test_y)
+print len(one_pred_y)
 # print classification_report(one_test_y, one_pred_y, target_names=['class0', 'class1'])
 print "*"*50
 ######## BOOSTING ########
@@ -94,3 +97,9 @@ neigh.fit(one_train_x, one_train_y)
 one_pred_y = [neigh.predict(x)[0] for x in one_test_x]
 print neigh.score(one_test_x, one_test_y)
 print classification_report(one_test_y, one_pred_y, target_names=['class0', 'class1'])
+
+
+if __name__ == "__main__":
+	if (len(sys.argv) > 1 and sys.argv[1] == "ionosphere"):
+		pass
+
