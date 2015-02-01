@@ -39,6 +39,7 @@ print dt.score( one_test_x, one_test_y )
 print classification_report(one_test_y, one_pred_y, target_names=['class0', 'class1'])
 print "*"*50
 ######## NEURAL NETS ########
+
 print "NEURAL NETS"
 input_size = 22
 target_size = 1
@@ -49,21 +50,24 @@ one_train_reshaped = np.array(one_train_y).reshape(-1,1)
 train_nnds.setField('target', one_train_reshaped)
 # train_nnds.setField('target', one_train_y)
 
-hidden_size = 100
+hidden_size = 5
 
 net = buildNetwork( input_size, hidden_size, target_size, bias = True )
 trainer = BackpropTrainer( net, train_nnds )
 
 print "training the neural net"
-trainer.trainUntilConvergence( verbose = True, validationProportion = 0.15, maxEpochs = 1000, continueEpochs = 10 )
-
+# trainer.trainUntilConvergence( verbose = True, validationProportion = 0.15, maxEpochs = 1000, continueEpochs = 10 )
+trainer.trainEpochs( 1000 )
 print ""
 print "Predicting with the neural network"
+#THIS IS ONLY FOR DEBUGGING PURPOSES
 # answerlist = []
 # for row in one_test_x:
-#     answer = np.argmax(net.activate(row))
+#     answer = int(round(net.activate(row)[0]))
 #     answerlist.append(answer)
-tstresult = percentError([np.argmax(net.activate(row)) for row in one_test_x], [x for x in one_test_y])
+# print "here is the answerList", answerlist
+# print "here is the one_test_y", one_test_y
+tstresult = percentError([int(round((net.activate(row))[0])) for row in one_test_x], [x for x in one_test_y])
 print "Test error: " + str(tstresult)
 print "*"*50
 ######## BOOSTING ########
@@ -88,6 +92,5 @@ print classification_report(one_test_y, one_pred_y, target_names=['class0', 'cla
 print "*"*50
 
 ######## kNN ########
-
 
 
