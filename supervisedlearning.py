@@ -59,11 +59,11 @@ trainer.trainUntilConvergence( verbose = True, validationProportion = 0.15, maxE
 
 print ""
 print "Predicting with the neural network"
-answerlist = []
-for row in one_test_x:
-    answer = np.argmax(net.activate(row))
-    answerlist.append(answer)
-tstresult = percentError(answerlist, [x for x in one_test_y])
+# answerlist = []
+# for row in one_test_x:
+#     answer = np.argmax(net.activate(row))
+#     answerlist.append(answer)
+tstresult = percentError([np.argmax(net.activate(row)) for row in one_test_x], [x for x in one_test_y])
 print "Test error: " + str(tstresult)
 print "*"*50
 ######## BOOSTING ########
