@@ -3,12 +3,12 @@ from sklearn import tree
 from sklearn import svm
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import classification_report
-
 from pybrain.tools.shortcuts import buildNetwork
 from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised.trainers import BackpropTrainer
 import numpy as np
-from pybrain.utilities           import percentError
+from pybrain.utilities import percentError
+from sklearn.neighbors import KNeighborsClassifier
 
 ######## GENERATE INSTANCES ########
 f = open('heart-data/SPECT.train', 'r')
@@ -60,13 +60,6 @@ print "training the neural net"
 trainer.trainEpochs( 1000 )
 print ""
 print "Predicting with the neural network"
-#THIS IS ONLY FOR DEBUGGING PURPOSES
-# answerlist = []
-# for row in one_test_x:
-#     answer = int(round(net.activate(row)[0]))
-#     answerlist.append(answer)
-# print "here is the answerList", answerlist
-# print "here is the one_test_y", one_test_y
 tstresult = percentError([int(round((net.activate(row))[0])) for row in one_test_x], [x for x in one_test_y])
 print "Test error: " + str(tstresult)
 print "*"*50
@@ -92,5 +85,10 @@ print classification_report(one_test_y, one_pred_y, target_names=['class0', 'cla
 print "*"*50
 
 ######## kNN ########
-
-
+print "k-NEAREST NEIGHBORS"
+neighbors = 7
+neigh = KNeighborsClassifier(n_neighbors=neighbors)
+neigh.fit(one_train_x, one_train_y)
+one_pred_y = [neigh.predict(x)[0] for x in one_test_x]
+print neigh.score(one_test_x, one_test_y)
+print classification_report(one_test_y, one_pred_y, target_names=['class0', 'class1'])
