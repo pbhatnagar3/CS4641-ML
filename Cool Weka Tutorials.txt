@@ -1,0 +1,2 @@
+Cool Weka Tutorials:
+	https://www.youtube.com/watch?v=m7kpIBGEdkI ~ 20 mins; covers Linear Regression, Decision Trees, NN, SVMs
