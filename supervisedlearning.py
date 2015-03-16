@@ -182,12 +182,44 @@ def test_svm(ds):
 			generate_report(pred_y, ds.test.y)
 
 
-print "SVM"
+# print "SVM"
+# print "Heart SPECT"
+# test_svm(heart)
+# print "Ionosphere"
+# test_svm(sphere)
+# print '*'*50
+
+
+def test_knn(ds):
+
+	def plot_acc(x, train_err, test_err):
+		plt.plot(x, train_err, label='Training accuracy')
+		plt.plot(x, test_err, color='r', label='Test Accuracy')
+		plt.xlabel('Neighbors')
+		plt.ylabel('Accuracy')
+		plt.title('Training and test accuracies')
+		plt.legend()
+		plt.show()
+
+	neighbors = range(1,30)
+	train_acc, test_acc = [], []
+
+	for n in neighbors:
+		neigh = KNeighborsClassifier(n_neighbors=n)
+		neigh.fit(ds.train.x, ds.train.y)
+		pred_y = [neigh.predict(x)[0] for x in ds.test.x]
+		print neigh.score(ds.test.x, ds.test.y)
+		generate_report(pred_y, ds.test.y)
+		train_acc.append( neigh.score(ds.train.x, ds.train.y) )
+		test_acc.append( neigh.score(ds.test.x, ds.test.y) )
+
+	plot_acc(neighbors, train_acc, test_acc)
+
+print "KNN"
 print "Heart SPECT"
-test_svm(heart)
-print "Ionosphere"
-test_svm(sphere)
-print '*'*50
+# test_knn(heart)
+test_knn(sphere)
+
 
 
 
